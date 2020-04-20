@@ -11,7 +11,7 @@ The full articles that explain how these programs work and how to use them can b
 Here are the accompanying videos that explain how to use these programs and some of the theory behind them:
 **Coming Soon**
 
-![ESP32 on ceiling fan for anomaly detection](https://raw.githubusercontent.com/ShawnHymel/tflite-speech-recognition/master/images/fan-anomaly-detection-cover.jpg)
+![ESP32 on ceiling fan for anomaly detection](https://raw.githubusercontent.com/ShawnHymel/tflite-anomaly-detection-example/master/images/fan-anomaly-detection-cover.jpg)
 
 Prerequisites
 --------------

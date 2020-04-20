@@ -33,6 +33,21 @@ Run **anomaly-detection-training-autoencoder** to see how to create a neural net
 
 Run **anomaly-detection-tflite-conversion** to create a TensorFlow Lite model from the .h5 Keras model (created in the anomaly-detection-training-autoencoder script).
 
+Collecting Data
+---------------
+
+If you wish to collect your own data, you will need to connect an MSA301 accelerometer to an ESP32 (I used the Adafruit Feather Huzzah32) via I2C. Open the **esp32_accel_post** sketch and change the WiFi credentials and server IP address to match your computer's IP address. Upload the sketch to the ESP32.
+
+Attach a battery to the ESP32 and secure it (using something like tape) to your electric motor (I used a ceiling fan).
+
+Start **http-accel-server.py** with the following arguments:
+
+```
+python http-accel-server.py -d <output directory where samples are stored> -p <port, such as 1337> -t <time to run server; something like 2400 seconds seems to work well>
+```
+
+You'll want to run the collection process for each operating mode of your motor. For a ceiling fan, that's off, low, medium, and high. It can also help to collect some "anomaly" data in a separate folder. For example, tape a coin to a ceiling fan blade and run the collection process again with all operating modes (except for "off").
+
 License
 -------
 

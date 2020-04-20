@@ -1,4 +1,4 @@
-TensorFlow Lite Anomaly Detection Example
+TinyML Example: Anomaly Detection
 ========
 
 This project is an example demonstrating how to use Python to train two different machine learning models to detect anomalies in an electric motor. The first model relies on the classic machine learning technique of Mahalanobis distance. The second model is an autoencoder neural network created with TensorFlow and Keras.

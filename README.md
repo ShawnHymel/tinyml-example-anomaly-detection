@@ -16,7 +16,7 @@ Here are the accompanying videos that explain how to use these programs and some
 Prerequisites
 --------------
 
-You will need to install TensorFlow, Keras, and Jupyter Notebook on your desktop or laptop. (This guide)[https://www.digikey.com/en/maker/projects/getting-started-with-machine-learning-using-tensorflow-and-keras/0746640deea84313998f5f95c8206e5b] will walk you through that process. 
+You will need to install TensorFlow, Keras, and Jupyter Notebook on your desktop or laptop. [This guide](https://www.digikey.com/en/maker/projects/getting-started-with-machine-learning-using-tensorflow-and-keras/0746640deea84313998f5f95c8206e5b) will walk you through that process. 
 
 Alternatively, you can use [Google Colab](https://colab.research.google.com/) to run a Jupyter Notebook instance in the cloud, however, loading files (e.g. training samples) will require you to upload them to Google Drive and write different code to import them into your program. [This guide](https://towardsdatascience.com/3-ways-to-load-csv-files-into-colab-7c14fcbdcb92) offers some tips on how to do that.
 
@@ -27,7 +27,11 @@ Getting Started
 
 Download this repository. Open **anomaly-detection-feature-analysis** in Jupyter Notebook and run it. Carefully look at the various plots to determine which features can be used to best discriminate between normal and anomalous operation.
 
+Run **anomaly-detection-training-mahalanobis-distance** to see how to create a mathematical model that can be used to find anomalies in the median absolute deviation (MAD) by calculating the Mahalanobis distance between new samples and the group of "normal" samples.
 
+Run **anomaly-detection-training-autoencoder** to see how to create a neural network that finds anomalies in the median absolute deviation (MAD) in new samples. The model is trained on a set of "normal" samples collected from the ceiling fan.
+
+Run **anomaly-detection-tflite-conversion** to create a TensorFlow Lite model from the .h5 Keras model (created in the anomaly-detection-training-autoencoder script).
 
 License
 -------

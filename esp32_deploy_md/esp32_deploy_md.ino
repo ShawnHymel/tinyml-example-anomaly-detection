@@ -1,8 +1,8 @@
 /**
- * Import sample and use Mahalanobis Distance to see if it's an anomaly.
+ * Use Mahalanobis Distance on real accelerometer data to see if it's an anomaly
  * 
  * Author: Shawn Hymel
- * Date: May 5, 2020
+ * Date: May 6, 2020
  * 
  * License: Beerware
  */
@@ -13,8 +13,6 @@
 
 // Local includes
 #include "md_model.h"
-#include "normal_sample.h"
-#include "anomaly_sample.h"
 
 extern "C" {
 #include "md_utils.h"
@@ -104,7 +102,7 @@ void loop() {
   // Print out MAD calculations
 #if DEBUG
   Serial.print("MAD: ");
-  for (int axis = 0; axis < normal_sample_dim2; axis++) {
+  for (int axis = 0; axis < NUM_AXES; axis++) {
     Serial.print(mad[axis], 7);
     Serial.print(" ");
   }
@@ -127,6 +125,9 @@ void loop() {
   } else {
     digitalWrite(BUZZER_PIN, LOW);
   }
+#if DEBUG
+  Serial.println();
+#endif
 
   delay(WAIT_TIME);
 }

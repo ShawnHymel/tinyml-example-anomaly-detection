@@ -14,9 +14,9 @@ from scipy import stats
 # Settings
 DEFUALT_PORT = 1337
 MODELS_PATH = 'models'
-MD_MODEL_FILE = 'md_model_test_01'  # .npz will be added
+MD_MODEL_FILE = 'md_model_test-deploy'  # .npz will be added
 MAX_MEASUREMENTS = 128      # Truncate measurements to this number
-ANOMALY_THRESHOLD = 14.0    # An MD over this will be considered an anomaly
+ANOMALY_THRESHOLD = 9.0    # An MD over this will be considered an anomaly
 
 # Global flag
 server_ready = 0

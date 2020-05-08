@@ -8,14 +8,16 @@ from os.path import join
 from io import BytesIO
 from functools import partial
 from http.server import HTTPServer, BaseHTTPRequestHandler
+import scipy as sp
+from scipy import stats
 from tflite_runtime.interpreter import Interpreter
 
 # Settings
 DEFUALT_PORT = 1337
 MODELS_PATH = 'models'
-TFLITE_MODEL_FILE = 'fan_low_model'  # .tflite will be added
+TFLITE_MODEL_FILE = 'fan_low_model-deploy'  # .tflite will be added
 MAX_MEASUREMENTS = 128      # Truncate measurements to this number
-ANOMALY_THRESHOLD = 100.0    # An MD over this will be considered an anomaly
+ANOMALY_THRESHOLD = 1e-5    # An MSE over this will be considered an anomaly
 
 # Global flag
 server_ready = 0
@@ -71,20 +73,23 @@ def parseSamples(json_str):
     # Calculate MAD for each axis
     feature_set = extract_features(np.array(sample), 
                                     max_measurements=MAX_MEASUREMENTS)
-
+    print("MAD:", feature_set)
+    
     # Make prediction from model
     in_tensor = np.float32(feature_set.reshape(1, 
-                                                feature_set.shape[0],
-                                                feature_set.shape[1],
-                                                1))
+                                                feature_set.shape[0]))
     interpreter.set_tensor(input_details[0]['index'], in_tensor)
     interpreter.invoke()
     output_data = interpreter.get_tensor(output_details[0]['index'])
-    val = output_data[0]
-    print(val)
+    pred = output_data[0]
+    print("Prediction:", pred)
 
-    # Compare to threshold to see if we have an anomaly
-    if mahal > ANOMALY_THRESHOLD:
+    # Calculate MSE
+    mse = np.mean(np.power(feature_set - pred, 2))
+    print("MSE:", mse)
+    
+    # Compare MSE the threshold
+    if mse > ANOMALY_THRESHOLD:
         print("ANOMALY DETECTED!")
     else:
         print("Normal")
@@ -143,6 +148,7 @@ port = args.port
 
 # Print versions
 print('Numpy ' + np.__version__)
+print('SciPy ' + sp.__version__)
 
 # Load model
 interpreter = Interpreter(join(MODELS_PATH, TFLITE_MODEL_FILE) + '.tflite')

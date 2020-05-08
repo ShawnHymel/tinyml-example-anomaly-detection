@@ -26,7 +26,7 @@ const char ssid[] = "<SSID>";
 const char password[] =  "<WIFI PASSWORD>";
 
 // Server, file, and port
-const char hostname[] = "192.168.1.68";
+const char hostname[] = "192.168.1.200"; //"192.168.1.68";
 const String uri = "/";
 const int port = 1337;
 

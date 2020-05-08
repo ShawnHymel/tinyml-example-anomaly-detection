@@ -72,9 +72,16 @@ def parseSamples(json_str):
     feature_set = extract_features(np.array(sample), 
                                     max_measurements=MAX_MEASUREMENTS)
 
-    # Compute Mahalnobis Distance between sample and model mean
-    mahal = mahalanobis(feature_set, model_mu, model_cov)
-    print("Mahalanobis Distance:", mahal)
+    # Make prediction from model
+    in_tensor = np.float32(feature_set.reshape(1, 
+                                                feature_set.shape[0],
+                                                feature_set.shape[1],
+                                                1))
+    interpreter.set_tensor(input_details[0]['index'], in_tensor)
+    interpreter.invoke()
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    val = output_data[0]
+    print(val)
 
     # Compare to threshold to see if we have an anomaly
     if mahal > ANOMALY_THRESHOLD:
@@ -138,7 +145,7 @@ port = args.port
 print('Numpy ' + np.__version__)
 
 # Load model
-interpreter = Interpreter(join(MODELS_PATH, TFLITE_MODEL_FILE))
+interpreter = Interpreter(join(MODELS_PATH, TFLITE_MODEL_FILE) + '.tflite')
 interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()

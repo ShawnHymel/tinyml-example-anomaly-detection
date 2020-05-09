@@ -24,20 +24,20 @@
 
 // We need our utils functions for calculating MAD
 extern "C" {
-#include "md_utils.h"
+#include "utils.h"
 };
 
 // Set to 1 to output debug info to Serial, 0 otherwise
 #define DEBUG 1
 
 // Pins
-constexpr int BUZZER_PIN = A5;
+constexpr int BUZZER_PIN = A1;
 
 // Settings
 constexpr int NUM_AXES = 3;           // Number of axes on accelerometer
 constexpr int MAX_MEASUREMENTS = 128; // Number of samples to keep in each axis
 constexpr float MAD_SCALE = 1.4826;   // Scale MAD to be inline with SciPy calcs
-constexpr float THRESHOLD = 3e-6;     // Any MSE over this is an anomaly
+constexpr float THRESHOLD = 2e-05;    // Any MSE over this is an anomaly
 constexpr int WAIT_TIME = 1000;       // ms between sample sets
 constexpr int SAMPLE_RATE = 200;      // How fast to collect measurements (Hz)
 

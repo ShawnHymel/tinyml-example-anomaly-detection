@@ -22,7 +22,7 @@
 
 // We need our utils functions for calculating MAD
 extern "C" {
-#include "md_utils.h"
+#include "utils.h"
 };
 
 // Settings

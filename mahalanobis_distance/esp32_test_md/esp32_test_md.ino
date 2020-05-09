@@ -7,12 +7,12 @@
  * License: Beerware
  */
 
-#include "md_model.h"
+#include "md_model-moving.h"
 #include "normal_sample.h"
 #include "anomaly_sample.h"
 
 extern "C" {
-#include "md_utils.h"
+#include "utils.h"
 };
 
 // Settings

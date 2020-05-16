@@ -17,7 +17,7 @@ DEFUALT_PORT = 1337
 MODELS_PATH = 'models'
 TFLITE_MODEL_FILE = 'fan_low_model-deploy'  # .tflite will be added
 MAX_MEASUREMENTS = 128      # Truncate measurements to this number
-ANOMALY_THRESHOLD = 1e-5    # An MSE over this will be considered an anomaly
+ANOMALY_THRESHOLD = 1.8e-6    # An MSE over this will be considered an anomaly
 
 # Global flag
 server_ready = 0

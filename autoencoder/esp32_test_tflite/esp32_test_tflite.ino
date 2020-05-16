@@ -173,6 +173,7 @@ void setup() {
   Serial.print("Inference result: ");
   for (int axis = 0; axis < normal_sample_dim2; axis++) {
     Serial.print(y_val[axis], 7);
+    Serial.print(" ");
   }
   Serial.println();
   Serial.print("MSE: ");

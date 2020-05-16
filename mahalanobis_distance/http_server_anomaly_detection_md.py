@@ -109,7 +109,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         # Decode JSON and compute MSE
-        file_num = parseSamples(body.decode('ascii'))
+        parseSamples(body.decode('ascii'))
 
 # Server thread
 class ServerThread(threading.Thread):
@@ -128,8 +128,8 @@ class ServerThread(threading.Thread):
 # Main
 
 # Parse arguments
-parser = argparse.ArgumentParser(description='Server that saves data from' +
-                                    'IoT sensor node.')
+parser = argparse.ArgumentParser(description='Server that receives data from' +
+                                    'IoT sensor node and detects anomalies.')
 parser.add_argument('-p', action='store', dest='port', type=int,
                     default=DEFUALT_PORT, help='Port number for server')
 args = parser.parse_args()

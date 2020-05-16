@@ -1,6 +1,9 @@
 /**
  * Use TensorFlow Lite model on real accelerometer data to detect anomalies
  * 
+ * NOTE: You will need to install the TensorFlow Lite library:
+ * https://www.tensorflow.org/lite/microcontrollers
+ * 
  * Author: Shawn Hymel
  * Date: May 6, 2020
  * 

@@ -32,7 +32,7 @@ For this project, you will need the following:
 
 * [Adafruit Feather ESP32](https://www.digikey.com/product-detail/en/adafruit-industries-llc/3591/1528-2514-ND/8119805)
 * [Adafruit MSA301 accelerometer](https://www.digikey.com/product-detail/en/adafruit-industries-llc/4344/1528-4344-ND/10419635)
-* [Raspberry Pi 3B+](https://www.digikey.com/product-detail/en/raspberry-pi/RASPBERRY-PI-3-MODEL-B-/1690-1025-ND/8571724)
+* [Raspberry Pi 3B+](https://www.digikey.com/product-detail/en/raspberry-pi/RASPBERRY-PI-3-MODEL-B-/1690-1025-ND/8571724) (optional)
 * [Piezo buzzer](https://www.digikey.com/product-detail/en/db-unlimited/IP303012-1/2104-IP303012-1-ND/9990516)
 
 You can use whatever breadboard, jumper wires, and battery you want to connect everything together.
@@ -53,13 +53,13 @@ In general, you will want to perform the following steps:
 
 Download this repository. Connect an MSA301 accelerometer breakout board to the ESP32 Feather. Open the [data_collection/esp32_accel_post/esp32_accel_post.ino](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/data_collection/esp32_accel_post/esp32_accel_post.ino) Arduino sketch and change the WiFi SSID, password, and server IP address. Upload to your ESP32. Place your ESP32 and accelerometer on the system you wish to monitor (e.g. ceiling fan).
 
-Run [data_collection/http_accel_server.py](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/data_collection/http_accel_server.py) on your server computer to collect data. Repeat this process for however many normal and anomaly states you wish to collect data from. Recommend at least 200 sample files per state.
+Run [data_collection/http_accel_server.py](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/data_collection/http_accel_server.py) on your server computer to collect data. Repeat this process for however many normal and anomaly states you wish to collect data from. I recommend at least 200 sample files per state.
 
 See the *Collecting Your Own Data* section below for more information on how to use the server script.
 
 #### Analyze Data
 
-Open [data_collection/anomaly-detection-feature-analysis](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/data_collection/anomaly-detection-feature-analysis.ipynb) in Jupyter Notebook and run it. Change the dataset_path to point to wherever you collected your sample files. Change the op_lists to be the names of the directories in that dataset path. Note that by default, the dataset path is set to datasets/ in this repository, which you are welcome to use (although it might not be indicative of your particular system).
+Open [data_collection/anomaly-detection-feature-analysis](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/data_collection/anomaly-detection-feature-analysis.ipynb) in Jupyter Notebook and run it. Change the dataset_path to point to wherever you collected your sample files. Change the op_lists to be the names of the directories in that dataset path. Note that by default, the dataset path is set to datasets/ in this repository. You are welcome to use my collected data (although it might not be indicative of your particular system).
 
 Carefully look at the various plots to determine which features can be used to best discriminate between normal and anomalous operation.
 
@@ -90,6 +90,8 @@ You will need to copy the generated .h files (model, test samples, etc.) to your
 If you wish to use your ESP32 remotely (i.e. it sends raw accelerometer data back to a server that performs inference), run the original [data collection sketch](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/data_collection/esp32_accel_post/esp32_accel_post.ino) on it. For your server, run [mahalanobis_distance/http_server_anomaly_detection_md.py](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/mahalanobis_distance/http_server_anomaly_detection_md.py) or [autoencoder/http_server_anomaly_detection_tflite.py](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/autoencoder/http_server_anomaly_detection_tflite.py), depending on which model you want to use. Note that for the Autoencoder, you will want to install TensorFlow Lite on your server.
 
 To use the model locally on your microcontroller (ESP32), you will want to use [mahalanobis_distance/esp32_deploy_md](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/tree/master/mahalanobis_distance/esp32_deploy_md) for the Mahalanobis Distance or [autoencoder/esp32_deploy_tflite](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/tree/master/autoencoder/esp32_deploy_tflite) for the Autoencoder. You will need to copy the respective model .h file generated in the previous step to the Arduino sketch's folder. Note that utils.h and utils.c (found in the [utils](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/tree/master/utils) directory) are also required, as they contain necessary C functions for computing MAD, matrix multiplication, etc.
+
+By default, a piezo buzzer is to be connected to pin A1 of the ESP32 Feather board, which buzzes any time an anomaly is detected. Feel free to change this to whatever action you want to take to alert the user.
 
 If you are curious, [mahalanobis_distance/esp_test_md](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/tree/master/mahalanobis_distance/esp32_test_md) and [autoencoder/esp32_test_tflite](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/tree/master/autoencoder/esp32_test_tflite) are used to test inference using the normal and anomaly samples generated earlier. You would want to use these files to check your C implementation against known good outputs in Python.
 

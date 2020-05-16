@@ -4,6 +4,8 @@ This project is an example demonstrating how to use Python to train two differen
 
 Data was captured using an ESP32 and MSA301 3-axis accelerometer taped to a ceiling fan. Each sample is about 200 samples of all 3 axes captured over the course of 1 second. Fan was run at multiple speeds (off, low, medium, high) with and without a weight. 1 "weight" is one US quarter taped to one of the fan's blades to create an offset motion. All raw data is stored in the ceiling-fan-dataset directory.
 
+Note that if you create a "robust" model by moving the fan around during data collection, the Autoencoder works much better than the Mahalanobis Distance method.
+
 The full articles that explain how these programs work and how to use them can be found here:
 * [Edge AI Anomaly Detection Part 1 - Data Collection](https://www.digikey.com/en/maker/projects/edge-ai-anomaly-detection-part-1-data-collection/7bb112f76ef644edaedc5e08dba5faae)
 * [Edge AI Anomaly Detection Part 2 - Feature Extraction and Model Training](https://www.digikey.com/en/maker/projects/edge-ai-anomaly-detection-part-2-feature-extraction-and-model-training/70927a6e439b49bea7305953a3c9bfff)
@@ -37,7 +39,8 @@ For this project, you will need the following:
 
 You can use whatever breadboard, jumper wires, and battery you want to connect everything together.
 
-### Getting Started
+Getting Started
+---------------
 
 Please read the tutorials above for full documentation on how to use the scripts found in this project.
 
@@ -71,9 +74,9 @@ Open [mahalanobis_distance/anomaly-detection-training-mahalanobis-distance.ipynb
 
 For the Autoencoder, open [autoencoder/anomaly-detection-training-autoencoder.ipynb](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/autoencoder/anomaly-detection-training-autoencoder.ipynb). Change the datasets variables to point to your normal and anomaly samples. The model is a trained neural network. Note that you might need to create and train the model several times (initialized parameters are random) to get a good separation between normal and anomaly mean squared errors (MSEs). The model is saved as a .h5 Keras file (you can find my models in [autonecoder/models](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/tree/master/autoencoder/models)).
 
-### Convert Models
+#### Convert Models
 
-If you are deploying the model(s) to a Raspberry Pi (or other single board computer), you can use the .npz file and Numpy for the Mahalanobis Distance. For the Autoencoder, you will want to convert the .h5 file to a TensorFlow Lite (.tflite) file. The functions for converting the .h5 file to a .tflite file can be found in [autoencoder/anomaly-detection-tflite-conversion.ipynb](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/autoencoder/anomaly-detection-tflite-conversion.ipynb).
+If you are deploying the model(s) to a Raspberry Pi (or other single board computer), you can use the generated .npz file for the Mahalanobis Distance. For the Autoencoder, you will want to convert the .h5 file to a TensorFlow Lite (.tflite) file. The functions for converting the .h5 file to a .tflite file can be found in [autoencoder/anomaly-detection-tflite-conversion.ipynb](https://github.com/ShawnHymel/tinyml-example-anomaly-detection/blob/master/autoencoder/anomaly-detection-tflite-conversion.ipynb).
 
 For use on a microcontroller, you will want to develop a set of C functions to calculate the MAD and Mahalanobis Distance or use [TensorFlow Lite for Microcontrollers](https://www.tensorflow.org/lite/microcontrollers).
 

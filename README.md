@@ -14,7 +14,9 @@ The full articles that explain how these programs work and how to use them can b
 
 Here are the accompanying YouTube videos that explain how to use these programs and some of the theory behind them:
 * [Edge AI Anomaly Detection Part 1: Data Collection](https://www.youtube.com/watch?v=Bxd7W1I-tq4)
-* *Rest coming soon*
+* [Edge AI Anomaly Detection Part 2: Feature Extraction and Model Training](https://www.youtube.com/watch?v=Mu3CzG-na4k)
+* [Edge AI Anomaly Detection Part 3: Deploy Machine Learning Models to Raspberry Pi](https://www.youtube.com/watch?v=3lCeYjnuTAk)
+* [Edge AI Anomaly Detection Part 4: Deploy TinyML Model in Arduino to ESP32](https://www.youtube.com/watch?v=Ya923oUF33U)
 
 ![ESP32 on ceiling fan for anomaly detection](https://raw.githubusercontent.com/ShawnHymel/tflite-anomaly-detection-example/master/images/fan-anomaly-detection-cover.jpg)
 
